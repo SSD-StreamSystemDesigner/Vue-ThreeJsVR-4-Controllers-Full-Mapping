@@ -138,11 +138,14 @@ const createButtonStates = (components)=>{
 //UPDATE GAMEPAD STATE
 const updateGamepadState = () => {
   const session = renderer.xr.getSession()
+  console.log("session: ", session)
 
-  const inputSource = session.inputSource[0]
+  const inputSource = session.inputSources[0]
+  console.log("inputSource: ", inputSource)
 
   if(inputSource && inputSource.gamepad && gamepadIndices && buttonStates){
     const gamepad = inputSource.gamepad;
+    console.log("gamepad: ",gamepad)
   
     try{
       Object.entries(buttonStates).forEach(([key, value]) => {
