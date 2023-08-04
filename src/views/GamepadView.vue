@@ -66,7 +66,9 @@ let loop = () => {
   const dt = clock.getDelta()
   let elapsedTime
   controls.update();
+
   if(renderer.xr.isPresenting){
+
     if(controllers){
       Object.values(controllers).forEach((value)=>{
         handleController(value.controller)
@@ -81,6 +83,8 @@ let loop = () => {
       elapsedTime = 0
     } 
   }
+    
+  
   
   renderer.render(scene, camera);
 };
@@ -205,9 +209,19 @@ onMounted(() => {
   controls = new OrbitControls(camera, canvasRef.value);
   controls.enableDamping = true;
 
+  const modelFactory = new XRControllerModelFactory()
+  
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints( [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, -1)])
+  const line = new THREE.Line(lineGeometry)
+  line.scale.z = 0
+
+  const controllers = {}
+  controllers.right = buildController(0, line, modelFactory)
+  controllers.left = buildController(1, line, modelFactory)
+
   //XR Controllers
   const controller = renderer.xr.getController(0)
-  
+
   controller.addEventListener("connected", (e)=>{
     const info = {}
 
@@ -360,15 +374,9 @@ onMounted(() => {
     })
   })
 
-  const modelFactory = new XRControllerModelFactory()
   
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints( [new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, -1)])
-  const line = new THREE.Line(lineGeometry)
-  line.scale.z = 0
 
-  const controllers = {}
-  controllers.right = buildController(0, line, modelFactory)
-  controllers.left = buildController(1, line, modelFactory)
+  
 
   //Room 
   const radius = 0.08;
