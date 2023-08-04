@@ -207,6 +207,7 @@ onMounted(() => {
 
   //XR Controllers
   const controller = renderer.xr.getController(0)
+  
   controller.addEventListener("connected", (e)=>{
     const info = {}
 
@@ -243,7 +244,7 @@ onMounted(() => {
         })
 
         if(trigger){
-          right.addEventListener("selectStart", ()=>{
+          right.addEventListener("selectstart", ()=>{
             right.userData.selectPressed = true
           })
           right.addEventListener("selectend", ()=>{
@@ -368,20 +369,6 @@ onMounted(() => {
   const controllers = {}
   controllers.right = buildController(0, line, modelFactory)
   controllers.left = buildController(1, line, modelFactory)
-
-  // //XR Controller Events handling
-  // controllers.forEach((controller)=>{
-  //   controller.addEventListener("selectstart", ()=>{
-  //     controller.children[0].scale.z = 10
-  //     controller.userData.selectPressed = true
-  //   })
-  //   controller.addEventListener("selectend", ()=>{
-  //     controller.children[0].scale.z = 0
-  //     highlighted.visible = false
-  //     controller.userData.selectPressed = false
-  //   })
-  // })
-  
 
   //Room 
   const radius = 0.08;
