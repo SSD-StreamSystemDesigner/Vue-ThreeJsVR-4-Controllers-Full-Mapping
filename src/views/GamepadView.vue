@@ -218,7 +218,7 @@ onMounted(() => {
   const line = new THREE.Line(lineGeometry)
   line.scale.z = 0
 
-  const controllers = {}
+  controllers = {}
   controllers.right = buildController(0, line, modelFactory)
   controllers.left = buildController(1, line, modelFactory)
 
